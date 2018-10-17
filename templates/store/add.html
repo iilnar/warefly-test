@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Add store{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    {{ render_field(form.name) }}
+    {{ render_field(form.address) }}
+    {{ render_field(form.latitude) }}
+    {{ render_field(form.longitude) }}
+    <input type="submit" value="Add">
+</form>
+{% endblock %}

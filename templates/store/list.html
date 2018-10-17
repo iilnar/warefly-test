@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Stores list{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<table class="table table-sm">
+<thead>
+<tr><th scope="col">Name</th><th scope="col">Address</th></tr>
+</thead>
+<tbody>
+{% for store in stores_list %}
+<tr><td>{{ store.name }}</td><td>{{ store.address }}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% if page != 0 %}
+<a href="0">All stores</a>
+{% endif %}
+
+{% if page > 1 %}
+<a href="{{ page - 1 }}">Previous page</a>
+{% endif %}
+
+{% if page < total_pages %}
+<a href="{{ page + 1 }}">Next page</a>
+{% endif %}
+
+{% endblock %}

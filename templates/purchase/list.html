@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}My purchases{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<table class="table table-sm">
+<thead>
+<tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Price</th></tr>
+</thead>
+<tbody>
+{% for record in records %}
+<tr><td scope="row">{{ record.Purchase.id }}</td><td>{{ record.Product.name }}</td><td>{{ record.Purchase.price }}</td></tr>
+{% else %}
+<tr><td colspan="3">No purchases</td></tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

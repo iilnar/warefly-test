@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Products list{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<table class="table table-sm">
+<thead>
+<tr><th scope="col">Name</th><th scope="col">Vendor</th></tr>
+</thead>
+<tbody>
+{% for product in products %}
+<tr><td>{{ product.name }}</td><td>{{ product.vendor }}</td></tr>
+{% else %}
+<tr><td colspan="2">No products</td></tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
