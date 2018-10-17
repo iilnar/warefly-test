@@ -1,25 +1,27 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Add purchase{% endblock %}</h1>
+    <h1>{% block title %}Add purchase{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-<form method="post">
-    <label for="store">Store</label>
-    <select name="store" id="store" required>
-    {% for store in stores %}
-    <option value="{{ store.id }}" {% if store.id|string == request.form['store'] %}selected{% endif %}>{{ store.name }}</option>
-    {% endfor %}
-    </select>
-    <label for="product">Product</label>
-    <select name="product" id="product" required>
-    {% for product in products %}
-    <option value="{{ product.id }}" {% if product.id|string == request.form['product'] %}selected{% endif %}>{{ product.name }}</option>
-    {% endfor %}
-    </select>
-    <label for="price">Price</label>
-    <input name="price" id="price" value="{{ request.form['price'] }}" required>
-    <input type="submit" value="Add">
-</form>
+    <form method="post">
+        <label for="store">Store</label>
+        <select name="store" id="store" required>
+            {% for store in stores %}
+                <option value="{{ store.id }}"
+                        {% if store.id|string == request.form['store'] %}selected{% endif %}>{{ store.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="product">Product</label>
+        <select name="product" id="product" required>
+            {% for product in products %}
+                <option value="{{ product.id }}"
+                        {% if product.id|string == request.form['product'] %}selected{% endif %}>{{ product.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="price">Price</label>
+        <input name="price" id="price" value="{{ request.form['price'] }}" required>
+        <input type="submit" value="Add">
+    </form>
 {% endblock %}

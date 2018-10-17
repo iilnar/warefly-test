@@ -1,16 +1,17 @@
-from flask import Blueprint, session, request, render_template, flash, redirect, g
+from flask import Blueprint, request, render_template, flash, g
+
 from db import db_session
 from models import Purchase, Product, Store, User
 from routes.auth import auth_required
 
-
 bp = Blueprint('purchase', __name__, url_prefix='/purchase')
+
 
 @auth_required
 @bp.route('/list', methods=['POST', 'GET'])
 def list():
     purchases = db_session.query(Purchase, Product).filter(
-            Purchase.buyer_id==g.user.id).join(Product)
+        Purchase.buyer_id == g.user.id).join(Product)
     return render_template('purchase/list.html', records=purchases)
 
 
@@ -22,8 +23,8 @@ def filter_by_user_and_store():
         user_id = request.form['user']
         store_id = request.form['store']
 
-        records = db_session.query(Purchase, Product).filter(Purchase.buyer_id==user_id and
-                Purshase.store_id == store_id).join(Product)
+        records = db_session.query(Purchase, Product).filter(Purchase.buyer_id == user_id and
+                                                             Purchase.store_id == store_id).join(Product)
     render_params = {
         'records': records,
         'users': db_session.query(User).order_by(User.id),
@@ -40,7 +41,7 @@ def add():
         product_id = request.form['product']
         price = request.form['price']
         has_error = False
-        
+
         if db_session.query(Store).filter(Store.id == store_id).count == 0:
             flash('No such store', 'error')
             has_error = True
@@ -54,7 +55,7 @@ def add():
         if not has_error:
             db_session.add(Purchase(g.user.id, store_id, product_id, price))
             db_session.commit()
-            flash('Purchase succesfully added', 'success')
+            flash('Purchase successfully added', 'success')
 
     render_params = {
         'products': db_session.query(Product).order_by(Product.name),

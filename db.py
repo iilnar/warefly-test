@@ -9,27 +9,32 @@ db_session = scoped_session(sessionmaker(bind=engine,
 Base = declarative_base()
 Base.query = db_session.query_property()
 
+
 def validate_int(value, name=''):
     try:
         return int(value)
     except:
         raise ValueError('{} should be int'.format(name))
 
+
 def validate_string(value):
     if not isinstance(value, str):
         raise ValueError('value is not a str instance')
     return value
 
+
 validators = {
-    Integer:validate_int,
-    String:validate_string
+    Integer: validate_int,
+    String: validate_string
 }
+
 
 @event.listens_for(Base, 'attribute_instrument')
 def configure_listener(class_, key, inst):
     if not hasattr(inst.property, 'columns'):
         return
-    # this event is called whenever a "set" 
+
+    # this event is called whenever a "set"
     # occurs on that instrumented attribute
     @event.listens_for(inst, "set", retval=True)
     def set_(instance, value, oldvalue, initiator):

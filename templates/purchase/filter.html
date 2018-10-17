@@ -1,35 +1,47 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Filter purchases{% endblock %}</h1>
+    <h1>{% block title %}Filter purchases{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-<form method="post">
-    <label for="user">User</label>
-    <select name="user" id="user" required>
-    {% for user in users %}
-    <option value="{{ user.id }}" {% if user.id|string == request.form['user'] %}selected{% endif %}>{{ user.name }}</option>
-    {% endfor %}
-    </select>
-    <label for="store">Store</label>
-    <select name="store" id="store" required>
-    {% for store in stores %}
-    <option value="{{ store.id }}" {% if store.id|string == request.form['store'] %}selected{% endif %}>{{ store.name }}</option>
-    {% endfor %}
-    </select>
-    <input type="submit" value="Filter">
-</form>
-<table class="table table-sm">
-<thead>
-<tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Price</th></tr>
-</thead>
-<tbody>
-{% for record in records %}
-<tr><td scope="row">{{ record.Purchase.id }}</td><td>{{ record.Product.name }}</td><td>{{ record.Purchase.price }}</td></tr>
-{% else %}
-<tr><td colspan="3">No purchases</td></tr>
-{% endfor %}
-</tbody>
-</table>
+    <form method="post">
+        <label for="user">User</label>
+        <select name="user" id="user" required>
+            {% for user in users %}
+                <option value="{{ user.id }}"
+                        {% if user.id|string == request.form['user'] %}selected{% endif %}>{{ user.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="store">Store</label>
+        <select name="store" id="store" required>
+            {% for store in stores %}
+                <option value="{{ store.id }}"
+                        {% if store.id|string == request.form['store'] %}selected{% endif %}>{{ store.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Filter">
+    </form>
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for record in records %}
+            <tr>
+                <td scope="row">{{ record.Purchase.id }}</td>
+                <td>{{ record.Product.name }}</td>
+                <td>{{ record.Purchase.price }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No purchases</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

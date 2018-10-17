@@ -1,11 +1,12 @@
-from flask import Blueprint, session, request, render_template, flash, redirect
+from flask import Blueprint, request, render_template, flash
 from wtforms import Form, StringField, validators
+
 from db import db_session
 from models import Product
 from routes.auth import auth_required
 
-
 bp = Blueprint('product', __name__, url_prefix='/product')
+
 
 @bp.route('/list', methods=['POST', 'GET'])
 @auth_required

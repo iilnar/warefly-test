@@ -1,9 +1,9 @@
-from flask import Blueprint, session, request, render_template, flash, redirect
+from flask import Blueprint, request, render_template, flash
 from wtforms import Form, StringField, DecimalField, validators
+
 from db import db_session
 from models import Store
 from routes.auth import auth_required
-
 
 bp = Blueprint('store', __name__, url_prefix='/store')
 PAGE_SIZE = 2
@@ -17,7 +17,7 @@ def list(page=0):
     if page == 0:
         stores = db_session.query(Store).order_by(Store.id)
     else:
-        offset = (page-1)*PAGE_SIZE
+        offset = (page - 1) * PAGE_SIZE
         stores = db_session.query(Store).order_by(Store.id).offset(offset).limit(PAGE_SIZE)
 
     render_params = {
@@ -34,7 +34,7 @@ class AddStoreForm(Form):
     address = StringField('address', [validators.DataRequired(), validators.Length(min=2, max=20)])
     latitude = DecimalField('latitude', [validators.DataRequired()])
     longitude = DecimalField('longitude', [validators.DataRequired()])
-    
+
 
 @bp.route('/add', methods=['POST', 'GET'])
 @auth_required
@@ -49,4 +49,3 @@ def add():
             db_session.commit()
             flash('Store succesfully added.', 'info')
     return render_template('store/add.html', form=form)
-

@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float
+
 from db import Base
+
 
 class Store(Base):
     __tablename__ = 'stores'

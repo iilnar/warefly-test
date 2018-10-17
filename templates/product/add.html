@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Add product{% endblock %}</h1>
+    <h1>{% block title %}Add product{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-<form method="post">
-    {{ render_field(form.name) }}
-    {{ render_field(form.vendor) }}
-    <input type="submit" value="Add">
-</form>
+    <form method="post">
+        {{ render_field(form.name) }}
+        {{ render_field(form.vendor) }}
+        <input type="submit" value="Add">
+    </form>
 {% endblock %}
